@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         jcenter { url "http://jcenter.bintray.com" }
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -14,7 +15,7 @@ allprojects {
         jcenter { url "http://jcenter.bintray.com" }
 
 //         Integration of HMS Dependent MAVEN silos
-        URL HMSMaven =new URL('http://developer.huawei.com/repo')
-        maven {url HMSMaven}
+        URL HMSMaven = new URL('http://developer.huawei.com/repo')
+        maven { url HMSMaven }
     }
 }
