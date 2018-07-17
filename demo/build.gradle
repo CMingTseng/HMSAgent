@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.wolfcstech.demo"
+        applicationId "com.netease.edu.study.message"
         minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
