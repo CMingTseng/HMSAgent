@@ -1,0 +1,10 @@
+.gradle/
+.idea/
+*.iml
+/build
+
+# generated files
+bin/
+gen/
+
+local.properties
