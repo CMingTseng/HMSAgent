@@ -16,31 +16,6 @@ import com.huawei.android.hms.agent.common.IClientConnectCallback;
 import com.huawei.android.hms.agent.common.INoProguard;
 import com.huawei.android.hms.agent.common.handler.CheckUpdateHandler;
 import com.huawei.android.hms.agent.common.handler.ConnectHandler;
-import com.huawei.android.hms.agent.game.FloatWindowApi;
-import com.huawei.android.hms.agent.game.GetTemperatureApi;
-import com.huawei.android.hms.agent.game.LoginApi;
-import com.huawei.android.hms.agent.game.RegisterHardwareCapabilityApi;
-import com.huawei.android.hms.agent.game.SavePlayerInfoApi;
-import com.huawei.android.hms.agent.game.UpdateGameInfoApi;
-import com.huawei.android.hms.agent.game.handler.GetTemperatureHandler;
-import com.huawei.android.hms.agent.game.handler.LoginHandler;
-import com.huawei.android.hms.agent.game.handler.RegisterHardwareCapabilityHandler;
-import com.huawei.android.hms.agent.game.handler.SaveInfoHandler;
-import com.huawei.android.hms.agent.hwid.CheckSignInApi;
-import com.huawei.android.hms.agent.hwid.SignInApi;
-import com.huawei.android.hms.agent.hwid.SignOutApi;
-import com.huawei.android.hms.agent.hwid.handler.SignInHandler;
-import com.huawei.android.hms.agent.hwid.handler.SignOutHandler;
-import com.huawei.android.hms.agent.pay.GetPayOrderApi;
-import com.huawei.android.hms.agent.pay.GetProductDetailsApi;
-import com.huawei.android.hms.agent.pay.GetPurchaseInfoApi;
-import com.huawei.android.hms.agent.pay.PayApi;
-import com.huawei.android.hms.agent.pay.ProductPayApi;
-import com.huawei.android.hms.agent.pay.handler.GetOrderHandler;
-import com.huawei.android.hms.agent.pay.handler.GetProductDetailsHandler;
-import com.huawei.android.hms.agent.pay.handler.GetPurchaseInfoHandler;
-import com.huawei.android.hms.agent.pay.handler.PayHandler;
-import com.huawei.android.hms.agent.pay.handler.ProductPayHandler;
 import com.huawei.android.hms.agent.push.DeleteTokenApi;
 import com.huawei.android.hms.agent.push.EnableReceiveNormalMsgApi;
 import com.huawei.android.hms.agent.push.EnableReceiveNotifyMsgApi;
@@ -53,20 +28,8 @@ import com.huawei.android.hms.agent.push.handler.EnableReceiveNotifyMsgHandler;
 import com.huawei.android.hms.agent.push.handler.GetPushStateHandler;
 import com.huawei.android.hms.agent.push.handler.GetTokenHandler;
 import com.huawei.android.hms.agent.push.handler.QueryAgreementHandler;
-import com.huawei.android.hms.agent.sns.GetMsgSendIntentApi;
-import com.huawei.android.hms.agent.sns.GetUiIntentApi;
-import com.huawei.android.hms.agent.sns.Handler.GetMsgSendIntentHandler;
-import com.huawei.android.hms.agent.sns.Handler.GetUiIntentHandler;
 import com.huawei.hms.api.HuaweiApiAvailability;
 import com.huawei.hms.api.HuaweiApiClient;
-import com.huawei.hms.support.api.entity.game.GamePlayerInfo;
-import com.huawei.hms.support.api.entity.pay.OrderRequest;
-import com.huawei.hms.support.api.entity.pay.PayReq;
-import com.huawei.hms.support.api.entity.pay.ProductDetailRequest;
-import com.huawei.hms.support.api.entity.pay.ProductPayRequest;
-import com.huawei.hms.support.api.entity.pay.PurchaseInfoRequest;
-import com.huawei.hms.support.api.entity.sns.SnsMsg;
-import com.huawei.hms.support.api.game.GameInfo;
 
 /**
  * HMSAgent 封装入口类。 提供了HMS SDK 功能的封装，使开发者更聚焦业务的处理。
@@ -292,189 +255,9 @@ public final class HMSAgent implements INoProguard {
         new CheckUpdateApi().checkUpdate(activity, callback);
     }
 
-    /**
-     * 游戏接口封装 | Game methods Encapsulation
-     */
-    public static final class Game {
-        /**
-         * 游戏登录接口 | Game Login method
-         * @param handler 游戏登录结果回调（结果会在主线程回调） | Game Login Result Callback (result will be callback in main thread)
-         * @param forceLogin 登录类型 | Logon type：
-         *                     0表示如果玩家未登录华为帐号或鉴权失败，SDK不会主动拉起帐号登录页面 | 0 indicates that if the player does not log in to Huawei ID or authentication failure, the SDK will not actively pull up the account login page；</br>
-         *                     1表示如果玩家未登录华为帐号或鉴权失败，SDK会主动拉起帐号登录页面。| 1 indicates that if the player does not log in to Huawei ID or authentication failure, the SDK will actively pull up the account login page.</br>
-         */
-        public static void login(LoginHandler handler, int forceLogin) {
-            new LoginApi().login(handler, forceLogin);
-        }
 
-        /**
-         * 显示游戏浮标，可以在应用程序任何地方调用 | Show the game buoy that can be invoked anywhere in the application
-         * @param activity 当前界面的activity | Activity of the current interface
-         */
-        public static void  showFloatWindow (Activity activity){
-            FloatWindowApi.INST.showFloatWindow(activity);
-        }
 
-        /**
-         * 隐藏游戏浮标 | Hide Game Buoy
-         * @param activity 当前界面的activity | Activity of the current page
-         */
-        public static void  hideFloatWindow (Activity activity){
-            FloatWindowApi.INST.hideFloatWindow(activity);
-        }
 
-        /**
-         * 保存玩家信息 | Save player Information
-         * @param playerInfo 玩家的信息数据 | Player Information data
-         * @param handler 保存结果回调（结果会在主线程回调） | Save result Callback (result will be callback in main thread)
-         */
-        public static void savePlayerInfo(GamePlayerInfo playerInfo, SaveInfoHandler handler) {
-            new SavePlayerInfoApi().savePlayerInfo(playerInfo, handler);
-        }
-
-        /**
-         * 获取设备温度信息 | Get Device temperature Information
-         * @param handler 结果回调 | Result Callback
-         */
-        public static void getTemperature(GetTemperatureHandler handler) {
-            new GetTemperatureApi().getTemperature(handler);
-        }
-
-        /**
-         * 注册硬件能力 | Registering hardware capabilities
-         * @param handler 注册结果回调 |Registration Result Callback
-         */
-        public static void registerHardwareCapability(RegisterHardwareCapabilityHandler handler) {
-            new RegisterHardwareCapabilityApi().registerHardwareCapability(handler);
-        }
-
-        /**
-         * 上报游戏信息 | Report Game Information
-         * @param info 游戏信息 | Game Information
-         * @return 上报结果 | Reported results
-         */
-        public static long updateGameInfo(GameInfo info){
-            return new UpdateGameInfoApi().updateGameInfo(info);
-        }
-    }
-
-    /**
-     * 支付接口封装 | Pay method Encapsulation
-     */
-    public static final class Pay {
-        /**
-         * 支付接口 | Pay method
-         * @param request 支付请求类实例 | Request body for payment
-         * @param handler 支付结果回调（结果会在主线程回调） | Payment result callback (result will be callback in main thread)
-         */
-        public static void pay(PayReq request, PayHandler handler){
-            PayApi.INST.pay(request, handler);
-        }
-
-        /**
-         * 商品编码支付接口 | PMS Payment Method
-         * @param requ 商品编码支付请求类 | Request body for PMS Payment
-         * @param handler 商品编码支付结果回调（结果会在主线程回调）| PMS Payment Result Callback (results are in main thread callback)
-         */
-        public static void productPay(ProductPayRequest requ, final ProductPayHandler handler){
-            ProductPayApi.INST.productPay(requ, handler);
-        }
-
-        /**
-         * 查询订单接口 | Query Order Status method
-         * @param request 查询订单请求体 | Request body for Query order status
-         * @param handler 查询订单结果回调（结果会在主线程回调） | Query order result callback (results are in main thread callback)
-         */
-        public static void getOrderDetail(OrderRequest request, GetOrderHandler handler) {
-            new GetPayOrderApi().getOrderDetail(request, handler);
-        }
-
-        /**
-         * 查询商品信息接口 | Method for querying product information in PMS payment
-         * @param request 查询商品信息请求体 | Request body for querying product information
-         * @param handler 查询商品信息结果回调（结果会在主线程回调） | Query product information result callback (result will be callback in main thread)
-         */
-        public static void getProductDetails(ProductDetailRequest request, GetProductDetailsHandler handler) {
-            new GetProductDetailsApi().getProductDetails(request, handler);
-        }
-
-        /**
-         * 查询非消耗商品订单接口 | Query non-expendable commodity order interface
-         * @param request “查询非消耗商品”请求体 | Query non-consumable item request body
-         * @param handler 查询非消耗商品结果回调（结果会在主线程回调） | Query for Non-expendable product result callback (result will be callback in main thread)
-         */
-        public static void getPurchaseInfo(PurchaseInfoRequest request, GetPurchaseInfoHandler handler) {
-            new GetPurchaseInfoApi().getPurchaseInfo(request, handler);
-        }
-    }
-
-    /**
-     * 社交接口封装 | SNS interface Encapsulation
-     */
-    public static final class Sns {
-        /**
-         * 获取拉起社交界面的intent | Get the intent to start SNS activity
-         * @param type Specify which interface to open, take value reference {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType}
-         * @param param 附加的参数 | Additional parameters <br>
-         *            This parameter can be ignored when {@code type} is in {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_MSG},
-         *            {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_FRIEND},
-         *            {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_FAMILY_GROUP},
-         *            {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_COMMON_GROUP} and any value may be passed <br>
-         *
-         *             This parameter requires an incoming group's Huawei account ID when {@code type}is in
-         *            {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_FAMILY_GROUP_DETAIL},
-         *            {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_COMMON_GROUP_DETAIL},
-         *            {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_CHAT_GROUP} <br>
-         *
-         *             This parameter requires an incoming user's Huawei account ID when {@code type} is in {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_USER_DETAIL},
-         *            {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_CHAT_FRIEND},
-         *            {@link com.huawei.hms.support.api.entity.sns.Constants.UiIntentType#UI_CHAT_ASSIST}。
-         * @param handler 结果回调（结果会在主线程回调）
-         */
-        public static void getUiIntent(int type, long param, GetUiIntentHandler handler){
-            new GetUiIntentApi().getUiIntent(type,param,handler);
-        }
-
-        /**
-         * 获取发送社交消息的intent | Get intent to send SNS messages
-         * @param msg 要发送的消息体 | The body of the message to send
-         * @param needResult 在社交界面发送完图文消息是否自动跳转回调用者应用界面 | Whether the message is automatically bounced back to the caller's application interface at the social interface
-         *       True：发完消息自动跳转回调用者界面 | True: Automatically jump back to caller interface after message is sent
-         *       False：发完消息停留在社交界面 | False: Messages remain on the social interface
-         * @param handler 结果回调（结果会在主线程回调） | Result callback (the result is in the main thread callback)
-         */
-        public static void getMsgSendIntent(SnsMsg msg, boolean needResult, GetMsgSendIntentHandler handler){
-            new GetMsgSendIntentApi().getMsgSendIntent(msg, needResult, handler);
-        }
-    }
-
-    /**
-     * 帐号接口封装 | Account Interface Encapsulation
-     */
-    public static final class Hwid {
-        /**
-         * 帐号登录请求 | Account Login Request
-         * 当forceLogin为false时，如果当前没有登录授权，则直接回调错误码。| When Forcelogin is false, the error code is directly invoked if there is currently no login authorization.
-         * 当forceLogin为true时，如果当前没有登录授权，则会拉起相应界面引导用户登录授权。 | When Forcelogin is true, if there is currently no login authorization, the corresponding interface is pulled to boot the user to logon authorization.
-         * @param forceLogin 是否强制登录。 | Whether to force a login.
-         * @param handler 登录结果回调（结果会在主线程回调） | Login result Callback (result is in main thread callback)
-         */
-        public static void signIn(boolean forceLogin, SignInHandler handler){
-            if (forceLogin) {
-                SignInApi.INST.signIn(handler);
-            } else {
-                new CheckSignInApi().checkSignIn(handler);
-            }
-        }
-
-        /**
-         * 帐号登出请求。此接口调用后，下次再调用signIn会拉起界面，请谨慎调用。如果不确定就不要调用了。 | Account Login Request. After this method is called, the next time you call signIn will pull the interface, please call carefully. Do not call if you are unsure.
-         * @param handler 登出结果回调（结果会在主线程回调） | Logout result callback (result will be callback in main thread)
-         */
-        public static void signOut(SignOutHandler handler){
-            new SignOutApi().signOut(handler);
-        }
-    }
 
     /**
      * push接口封装 | Push interface Encapsulation
