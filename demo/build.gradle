@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.netease.edu.study.message"
+        applicationId "com.netease.edu.study.debug"
         minSdkVersion 19
         targetSdkVersion 21
         versionCode 1

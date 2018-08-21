@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.netease.edu.study.message">
+    package="com.netease.edu.study.debug">
 
     <!--HMS-SDK引导升级HMS功能，访问OTA服务器需要网络权限-->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,14 +34,14 @@
              Format android:value= "appid=xxxxxx"-->
         <meta-data
             android:name="com.huawei.hms.client.appid"
-            android:value="appid=100341497" />
+            android:value="appid=100386409" />
 
 
         <!-- 接入HMSSDK 需要注册的provider，authorities 一定不能与其他应用一样，所以这边 com.netease.edu.study.message 要替换上您应用的包名
             Access HMSSDK need to register provider,authorities must not be the same as other applications, so this side ${package_name} to replace the package name you applied-->
         <provider
             android:name="com.huawei.hms.update.provider.UpdateProvider"
-            android:authorities="com.netease.edu.study.message.hms.update.provider"
+            android:authorities="com.netease.edu.study.debug.hms.update.provider"
             android:exported="false"
             android:grantUriPermissions="true" />
 
@@ -49,7 +49,7 @@
             Access HMSSDK need to register provider,authorities must not be the same as other applications, so this side ${package_name} to replace the package name you applied-->
         <provider
             android:name="com.huawei.updatesdk.fileprovider.UpdateSdkFileProvider"
-            android:authorities="com.netease.edu.study.message.updateSdk.fileProvider"
+            android:authorities="com.netease.edu.study.debug.updateSdk.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true"></provider>
 
@@ -111,7 +111,7 @@
             Receive push message (registration, push message, push connection state) broadcast.
             This receiver class requires the developer to create and inherit the com.huawei.hms.support.api.push.PushReceiver class.
             Reference to class in sample code: Com.huawei.hmsagent.HuaweiPushRevicer-->
-        <receiver android:name="com.netease.edu.study.message.PushMessageRevicer">
+        <receiver android:name=".PushMessageRevicer">
             <intent-filter>
                 <!-- 必须,用于接收token | Must， for receiving token -->
                 <action android:name="com.huawei.android.push.intent.REGISTRATION" />

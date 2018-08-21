@@ -1,4 +1,4 @@
-package com.netease.edu.study.message;
+package com.netease.edu.study.debug;
 
 import android.content.Intent;
 import android.os.Bundle;
