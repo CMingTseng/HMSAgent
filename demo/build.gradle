@@ -41,5 +41,9 @@ dependencies {
 }
 
 repositories {
+    flatDir {
+        dirs '../hmsagents/libs' //this way we can find the .aar file in libs folder
+    }
+
     google()
 }

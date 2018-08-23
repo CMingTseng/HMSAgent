@@ -23,8 +23,15 @@ android {
     }
 }
 
+//repositories {
+//    flatDir {
+//        dirs 'libs'
+//    }
+//}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile(name:'flyme-push-internal-3.7.4', ext:'aar')
 
     // 此处版本号仅为示例，请手动修改成实际集成的HMSSDK版本号
     String HMSSDKVer = '2.6.1.301'

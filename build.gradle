@@ -17,5 +17,9 @@ allprojects {
 //         Integration of HMS Dependent MAVEN silos
         URL HMSMaven = new URL('http://developer.huawei.com/repo')
         maven { url HMSMaven }
+
+        flatDir {
+            dirs 'libs' //this way we can find the .aar file in libs folder
+        }
     }
 }
